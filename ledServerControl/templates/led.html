@@ -1,0 +1,95 @@
+<html> 
+<head> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Raspberry Pi</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="static/freelancer.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="static/jscolor.js"></script> 
+</head> 
+<body> 
+<div class="container">
+<div class="row">
+<div class="col-sm">
+<h1> Color all leds </h1>
+<input class="jscolor" id="btnPicker" type="button" style="font-size:300%">  
+</div>
+</div>
+</div>
+<div class="container">
+<div class="row">
+  <div class="col-sm">
+  <h2> Top shelf </h2>
+  <input class="jscolor" id="topShelfPicker" type="button" style="font-size:300%">  
+  </div>
+  <div class="col-sm">
+  <h2> Mid shelf </h2>
+  <input class="jscolor" id="midShelfPicker" type="button" style="font-size:300%">  
+  </div>
+  <div class="col-sm">
+  <h2> Bottom shelf </h2>
+  <input class="jscolor" id="botShelfPicker" type="button" style="font-size:300%">  
+  </div>
+</div>
+</div>
+<script> 
+  document.getElementById('btnPicker').addEventListener('change', function(e){
+    update(this.jscolor, 'btnPicker')
+  })
+  document.getElementById('topShelfPicker').addEventListener('change', function(e){
+    update(this.jscolor, 'topShelfPicker')
+  })
+  document.getElementById('midShelfPicker').addEventListener('change', function(e){
+    update(this.jscolor, 'midShelfPicker')
+  })
+  document.getElementById('botShelfPicker').addEventListener('change', function(e){
+    update(this.jscolor, 'botShelfPicker')
+  })
+  function update(picker, name) {
+  console.log(name)
+    // 'jscolor' instance can be used as a string
+   // document.getElementById('rect').style.backgroundColor = '#' + jscolor
+  var xhr = new XMLHttpRequest();
+  var url = ""
+  if(name == "btnPicker") {
+    url = "/fill";
+  }
+  else if(name == "topShelfPicker") {
+    url = "/fillTopShelf"
+  }
+  else if(name == "midShelfPicker") {
+    url = "/fillMidShelf"
+  }
+  else if(name == "botShelfPicker") {
+    url = "/fillBotShelf"
+  }
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  var data = JSON.stringify({"r": Math.round(picker.rgb[0]), "g": Math.round(picker.rgb[1]), "b": Math.round(picker.rgb[2])});
+  xhr.send(data);
+  }
+</script>
+    <script src="static/jquery/jquery.min.js"></script>
+    <script src="static/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="static/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Contact Form JavaScript -->
+    <script src="static/jqBootstrapValidation.js"></script>
+    <!-- Custom scripts for this template -->
+    <script src="static/freelancer.min.js"></script>
+
+</body>
+</html>

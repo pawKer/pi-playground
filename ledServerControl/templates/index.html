@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Raspberry Pi</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="static/freelancer.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">My Raspberry Pi</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            </li>
+	    <li class="nav-item">
+		<a class="nav-link js-scroll-trigger" href="/leds">Led control</a>
+	    </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="masthead">
+      <div class="container">
+        <img class="img-fluid" src="static/profile.png" alt="" height="20%">
+        <div class="intro-text">
+          <span class="name">Welcome to the Pi Web Server !</span>
+          <hr class="star-light">
+          <span class="skills">Current uptime is {{uptime}}</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Portfolio Grid Section -->
+    <section id="portfolio">
+      <div class="container">
+        <h2 class="text-center">Useful statistics</h2>
+        <hr class="star-primary">
+        <div class="row">
+          <div class="container">
+          <!-- PORTOFOLIO SECTION -->
+            <p class="text-center">{{home}}</p>
+	    <p class="text-center">CPU Percentage : {{cpu_percent}}%</p>
+            <p class="text-center">RAM Percentage : {{ram_percent}}%</p>
+            <p class="text-center">Disk Percentage : {{disk_percent}}%</p>
+            <p class="text-center">{{tempHum}}</p>
+            <p class="text-center"><a href="/colwipe">Colour Wipe</a></p>
+            <p class="text-center"><a href="/rainbow">Rainbow</a></p>
+            <p class="text-center"><a href="/romFlag">Romflag</a></p>
+            <p class="text-center"><a href="/theaterRainbow">TheaterRainbow</a></p>
+            <p class="text-center"><a href="/neonLights">NeonLights</a></p>
+         </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="success" id="about">
+      <div class="container">
+        <h2 class="text-center">Display message on PI</h2>
+        <hr class="star-light">
+        <div class="row">
+          <form class="form-group centered" action="">
+              <input name="text" type="text" id="field1" />
+              <input type="button" id="submitdata" value="Display text"/>
+          </form>
+	</div>
+        <div class="row centered" id="fillmein">
+        </div>
+          <!--
+          <div class="col-lg-4 ml-auto">
+            <p>Freelancer</p>
+          </div>
+          <div class="col-lg-4 mr-auto">
+            <p>Whether</p>
+          </div>
+          -->
+	  <script>
+           $("#submitdata").click(function() {
+  	   //var FormVal={"datafield1":"hello world"};
+           
+  	   $.ajax({
+    		type: "POST",
+		url: "handle_post",
+     		data: $('#field1').serialize(),
+    		async: true,
+                beforeSend: function() {
+			console.log("before post")
+			//$('#field1').attr('readonly', 'true');
+			//console.log("Set readonly: true")
+			$('#fillmein').html("<h5>Message now displaying on pi...</h5>");
+		},
+    		success: function(response) { 
+               		//$('#field1').attr('readonly', 'false');
+			//console.log("Set readonly: false")
+			$('#fillmein').html("<h5>Displayed: " + "<i>" +$('#field1').val() + "</i>" + "</h5>"); // Assign the values to the DIV
+             	        console.log("send post")
+                        console.log(response)
+                        console.log($('#field1').serialize())
+                }
+  		});
+             });
+          </script>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Modals -->
+    
+    <!-- Footer -->
+    <footer class="text-center">
+      <div class="footer-above">
+        <div class="container">
+          <div class="row">
+            <div class="footer-col col-md-4">
+            </div>
+            <div class="footer-col col-md-4">
+            </div>
+            <div class="footer-col col-md-4">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-below">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              Copyright &copy; Rares Dinu
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="static/jquery/jquery.min.js"></script>
+    <script src="static/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="static/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Contact Form JavaScript -->
+    <script src="static/jqBootstrapValidation.js"></script>
+    <!-- Custom scripts for this template -->
+    <script src="static/freelancer.min.js"></script>
+
+  </body>
+
+</html>
