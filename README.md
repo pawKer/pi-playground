@@ -1,4 +1,7 @@
-# piWorkspace
+# pi-playground
+
+# Mention
+Unfortunately, I have lost the commit history from a previous repo :(
 
 # Description
 This is a repo for the things I play around with on Raspberry Pis. Use at your own risk because most of the stuff is experimental. Parts of code are found on the internet. The code is really messy since I was experimenting and mostly coding in nano lol. 
